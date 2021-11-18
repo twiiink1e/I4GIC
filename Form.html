@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Form</title>
+  </head>
+  <body>
+    <style>
+        body 
+        {
+            font-family: Arial;
+            font-size: 20px;
+        }
+        .grid-container {
+          display: grid;
+          grid-template-columns: 1fr 2fr;
+        }
+
+        .grid-item {
+
+          padding: 5px;
+          font-size: 20px;
+          text-align: left;
+  
+        }
+
+        .grid-container2 {
+          display: grid;
+          grid-template-columns: 200px 200px 200px;
+        }
+        
+        .grid-container3 {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        input[type=submit] {
+          background-color: Blue;
+          border-color: black;
+          border-width: 3px;
+          color: white;
+          padding: 10px 20px;
+          margin: 0px 460px;
+          cursor: pointer;
+        }
+        
+
+    </style>
+    
+    <hr style="height:3px;border-width:0;background-color:black">
+    <h1>Tell us about yourself</h1>
+    <hr style="height:3px;border-width:0;background-color:black">
+    <h3>Profile Information</h3>
+
+  <form>
+    <div class="grid-container">
+      <div class="grid-item">
+        <label for="lname"><b>Last name:</b></label><br>
+        <input type="text" id="lname" name="lname" size="50"><br><br>        
+      </div>
+      <div class="grid-item">
+        <label for="email"><b>First name:</b></label><br>
+        <input type="text" id="fname" name="fname" size="50"><br><br>  
+      </div>
+    
+    </div>
+    <div class="grid-container">
+      <div class="grid-item">
+        <label for="email"><b>Email:</b></label><br>
+        <input type="text" id="email" name="email" size="50"><br><br>        
+      </div>
+      <div class="grid-item">
+        <label for="Phone"><b>Phone:</b></label><br>
+        <input type="text" id="phone" name="phone" size="50"><br><br>  
+      </div>
+    </div>
+    
+      <p><b>Gender&emsp;&emsp;</b>
+      <input type="radio" id="male" name="male" value="Male">
+      <label for="html">Male&emsp;</label>
+      <input type="radio" id="female" name="female" value="Female">
+      <label for="css">Female</label><br><br>
+      <hr style="height:3px;border-width:0;background-color:black">
+
+      <p><b>Current Address</b></p>
+      
+      <select name="city" id="city" >
+        <option value="province">Province / City &emsp;</option>
+        <option value="pp">Phnom Penh &emsp;</option>
+        <option value="kd">Kandal &emsp;</option>
+        <option value="kp">Kampot &emsp;</option>
+        <option value="tk">Takeo &emsp;</option>
+      </select>&emsp;&emsp;&emsp;
+      
+      <select name="country" id="country">
+        <option value="count">Country &emsp;</option>
+        <option value="pp">Cambodia &emsp;</option>
+        <option value="kd">Thailand &emsp;</option>
+        <option value="kp">China &emsp;</option>
+        <option value="tk">Vietnam &emsp;</option>
+      </select>&emsp;&emsp;&emsp;
+      
+      <input type="text" id="postcode" name="postcode" value="Post Code">
+      <br><br>
+      
+      <label for="multiLineInput"> <!-- Add the label if you want -->
+        <p><b>Address:</b></p>
+        <textarea rows="5" cols="105" id="multiLineInput"></textarea>
+      </label> 
+
+      <div class="grid-container">
+        <div class="grid-item">
+          <p><b>Skills</b></p>
+          <input type="checkbox" id="box1" name="box1" value="design">
+          <label for="box1"> Designing</label>&emsp;
+          <input type="checkbox" id="box2" name="box2" value="data">
+          <label for="box3"> Database management</label><br>
+          <input type="checkbox" id="box3" name="box3" value="code">
+          <label for="box2"> Coding</label>&emsp;&emsp;
+          <input type="checkbox" id="box4" name="box4" value="debug">
+          <label for="box4"> Debug</label><br>
+        </div>
+        
+        <div class="grid-item">
+          <p><b>Languages</b></p>
+          <input type="checkbox" id="box1" name="box1" value="English">
+          <label for="box1"> English</label>&emsp;&emsp;
+          <input type="checkbox" id="box2" name="box2" value="Chinese">
+          <label for="box3"> Chinese</label><br>
+          <input type="checkbox" id="box3" name="box3" value="French">
+          <label for="box3"> French</label><br><br>
+        </div>
+        </div>
+
+        <p><b>Experiences</b></p><br>
+        <div class="grid-container2">
+          <div class="grid-item">
+            <label for="from"><b>From</b></label><br><br>
+            <input type="text" id="from" name="from" size="20"><br><br>
+            <input type="text" id="from" name="from" size="20"><br><br>
+            <input type="text" id="from" name="from" size="20"><br><br>
+            <input type="text" id="from" name="from" size="20"><br><br>
+                    
+          </div>
+          <div class="grid-item">
+            <label for="to"><b>To</b></label><br><br>
+            <input type="text" id="to" name="to" size="20"><br><br>
+            <input type="text" id="to" name="to" size="20"><br><br>
+            <input type="text" id="to" name="to" size="20"><br><br>
+            <input type="text" id="to" name="to" size="20"><br><br>
+ 
+          </div>
+          <div class="grid-item">
+            <label for="description"><b>Description</b></label><br><br>
+            <input type="text" id="" name="" size="50"><br><br>
+            <input type="text" id="" name="" size="50"><br><br>
+            <input type="text" id="" name="" size="50"><br><br>
+            <input type="text" id="" name="" size="50"><br><br>
+          </div>
+        </div>
+    
+        <label for="myfile"><b>Choose your profile photo</b></label><br><br>
+        <input type="file" id="myfile" name="myfile">
+
+        <br><br>
+        <input type="submit" value="Submit">
+  </form>
+  
+
+  </body>
+</html>

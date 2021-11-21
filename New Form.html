@@ -2,55 +2,55 @@
 <html>
     <head>
         <title>My Form</title>
-    </head>
+        <style>
+          body
+          {
+              font-family: Arial;
+              font-size: 15px;
+          }
 
-<body>
-    <style>
+          * {
+            box-sizing: border-box;
+          }
 
-        body
-        {
-            font-family: Arial;
-            font-size: 15px;
-        }
+          .column {
+            float: left;
+            width: 50%;
 
-        * {
-          box-sizing: border-box;
-        }
-        
-        .column {
+          }
+
+          .row:after {
+            content: "";
+            display: table;
+            clear: both;
+          }
+
+          .column2 {
           float: left;
-          width: 50%;
+          width: 33.33%;
+          }
 
-        }
-        
-        .row:after {
+          .row2:after {
           content: "";
           display: table;
           clear: both;
-        }
+          }
 
-        .column2 {
-        float: left;
-        width: 33.33%;
-        }
+          input[type=submit] {
+            background-color: Blue;
+            border-color: black;
+            border-width: 3px;
+            color: white;
+            padding: 10px 20px;
+            margin: 0px 780px;
+            cursor: pointer;
+          }
 
-        .row2:after {
-        content: "";
-        display: table;
-        clear: both;
-        }
+        </style>
+    </head>
 
-        input[type=submit] {
-          background-color: Blue;
-          border-color: black;
-          border-width: 3px;
-          color: white;
-          padding: 10px 20px;
-          margin: 0px 780px;
-          cursor: pointer;
-        }
+  <body>
 
-    </style>
 
     <hr style="height:3px;border-width:0;background-color:black">
     <h1>Tell us about yourself</h1>
@@ -129,10 +129,8 @@
             </div>
 
 
-            <br>
-
             <div class="column">
-              <p><b>Skills</b></p>
+              <p><b>Language</b></p>
                     <input type="checkbox" id="box1" name="box1" value="design">
                     <label for="box1"> English</label>&emsp;
                     <input type="checkbox" id="box2" name="box2" value="data">
@@ -165,6 +163,7 @@
                 </div>
               </div>
             </div>
+
             <div class="column">
               <label for="description"><b>Description</b></label><br><br>
               <input type="text" id="des" name="des" size="50"><br><br>

@@ -56,8 +56,39 @@ body {
   .container .information{
     padding: 5px;
     width: 250px;
-    margin-right: 100px;
+    text-align: left;
+    margin-left: 100px;
+  }
+
+  .container .information2{
+    text-decoration: underline; 
+    text-decoration-color: rgba(228, 196, 54);
+    color:white;
+    width: 250px;
     text-align: justify;
+    margin-right: 300px;
+    margin-left: 100px;
+    padding:5px;
+    text-decoration-thickness: 3px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+  
+  .columnup {
+
+    float: left;
+    width: 0%;
+    color: white;
+    margin-left: 100px;
+  }
+
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+    color: white;
   }
 
   #nav {

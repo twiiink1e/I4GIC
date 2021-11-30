@@ -57,7 +57,8 @@ body {
     padding: 5px;
     width: 250px;
     text-align: left;
-    margin-left: 100px;
+    margin-left: 15%;
+
   }
 
   .container .information2{
@@ -65,9 +66,7 @@ body {
     text-decoration-color: rgba(228, 196, 54);
     color:white;
     width: 250px;
-    text-align: justify;
-    margin-right: 300px;
-    margin-left: 100px;
+    text-align:left;
     padding:5px;
     text-decoration-thickness: 3px;
   }
@@ -79,9 +78,10 @@ body {
   .columnup {
 
     float: left;
-    width: 0%;
     color: white;
-    margin-left: 100px;
+    position: absolute;
+    top: 95%;
+    width: 92%;
   }
 
   .row:after {

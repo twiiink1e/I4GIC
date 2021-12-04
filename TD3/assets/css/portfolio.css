@@ -19,75 +19,118 @@ body {
     border-radius: 100%;
     border: 2px solid #e5e5e5;
   }
+
+  .container img {
+    width:135%;
+    height:auto;
+
+  }
+
+
   .sidebar h4 {
     color: #d1cfcf;
   }
   .container {
-    background-image: url('../image/home_page_bg_2.jpeg');
     height: 100vh;
     margin-left: 25%;
     color: #fff;
     position: relative;
     margin: left 50px;
+  }
 
-  }
-  .container_mask {
-    height: 100vh;
-    /* opacity: 0.5; */
-    background-color: rgba(0, 0, 0, 0.619);
-  }
   .container .container_text {
     width: 100%;
     position: absolute;
     right: 0;
   }
-  .container .user_name {
-    font-size: 70px;
-    margin: 0px;
-    padding-top: 80px;
-  }
-  .container .user_role {
-    color: rgb(255, 255, 255);
-    opacity: 0.2;
-    padding: 20px;
-  }
 
-  .container .information{
-    padding: 5px;
-    width: 250px;
-    text-align: left;
-    margin-left: 25%;
-
+  .container .about {
+    color:#ffffff;
+    background-color:rgb(228, 196, 54);
+    padding: 10px;
+    width: 180px;
+    text-align: right;
+    
   }
 
-  .container .information2{
+  .container .info {
+    width: 180px; 
+    margin-left: 15%;
+    color: black;
+  }
+
+
+  .container .artist{
+    margin-top: 35px;
+    opacity: 0.5;
+    font-size: 15px;
+  }
+
+  .container .header{
     text-decoration: underline; 
     text-decoration-color: rgba(228, 196, 54);
-    color:white;
-    width: 250px;
-    text-align:left;
-    padding:5px;
-    text-decoration-thickness: 2px;
+    color:black;
+    text-align: left;
+    padding:0px;
+    text-decoration-thickness: 3px;
   }
+
+  .container .header2{
+    text-decoration: underline; 
+    text-decoration-color: rgba(228, 196, 54);
+    color:black;
+    text-align: left;
+    padding:0px;
+    text-decoration-thickness: 3px;
+  }
+
+  .container .number{
+    color:rgb(228, 196, 54);
+    font-size: 30px;
+    padding:0px;
+  }
+
 
   * {
     box-sizing: border-box;
   }
   
   .columnup {
-
     float: left;
-    color: white;
-    position: absolute;
-    top: 95%;
-    width: 92%;
+    width: 30%;
+    color: black;
   }
 
+  .column {
+    float: left;
+    width: 50%;
+    padding: 30px;
+    color: black;
+  
+  }
+
+  
   .row:after {
     content: "";
     display: table;
     clear: both;
-    color: white;
+    color: black;
+  }
+
+  .column3 {
+    float: left;
+    width: 33.33%;
+    padding: 35px;
+   
+  }
+
+              
+  #box {
+    font-size: 13px;
+    border: 1px solid rgba(219, 219, 219, 0.897);
+    background-color: rgba(219, 219, 219, 0.308);
+    padding: 12px;
+    box-shadow: 1px 1px #8888884b;
   }
 
   #nav {
@@ -119,4 +162,5 @@ body {
     color: black;
     text-decoration: none;
   }
+
   

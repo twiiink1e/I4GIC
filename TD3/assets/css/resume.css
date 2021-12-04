@@ -48,12 +48,37 @@ body {
     padding: 10px;
     width: 180px;
     text-align: right;
+    
+  }
+
+  .container .year1 {
+    color:#ffffff;
+    background-color:rgb(108, 207, 90);
+    padding: 5px;
+    width: 100px;
+    text-align: right;
+    font-size: 100%;
+  }
+
+  .container .year {
+    color:#ffffff;
+    background-color:rgb(108, 207, 90);
+    padding: 5px;
+    width: 170px;
+    text-align: right;
+    font-size: 100%;
   }
 
   .container .info {
-    width: 300px; 
-    padding: 30px;
-    border: 1px solid black;
+    width: 180px; 
+    margin-left: 15%;
+    color: black;
+  }
+
+  .container .info2 {
+    width: 180px; 
+    color: black;
+    line-height: 0%;
   }
 
   .container .artist{
@@ -62,11 +87,18 @@ body {
     font-size: 15px;
   }
 
+  .container .job{
+    color:black;
+    opacity: 0.5;
+    margin-left: 15%;
+    font-size: 12px;
+    line-height: 0%;
+  }
+
   .container .header{
     text-decoration: underline; 
     text-decoration-color: rgba(228, 196, 54);
     color:black;
-    margin-left: 10px;
     text-align: left;
     padding:0px;
     text-decoration-thickness: 3px;
@@ -106,12 +138,6 @@ body {
   
   }
 
-  .column6 {
-    float: left;
-    width: 50%;
-    color: black;
-    opacity: 0.5;
-  }
   
   .row:after {
     content: "";
@@ -123,15 +149,42 @@ body {
   .column3 {
     float: left;
     width: 33.33%;
-    padding: 10px;
+    padding: 35px;
    
   }
 
-  .column4 {
-    float: left;
-    width: 25%;
-    padding: 10px;
+  .wrapper {
+    width: 250px;
+   }
+              
+   .progress-bar {
+    width: 100%;
+    background-color: 228, 196, 54;
+    padding: 2px;
+    border-radius: 30px;
+    border: 2px solid rgb(228, 196, 54);
+  }
+              
+  .progress-bar-fill {
+    display: block;
+    height: 12px;
+    background-color: rgb(228, 196, 54);
+    border-radius: 30px;
+  }
+
+  .btn {
+    background-color: White;
+    border: none;
     color: black;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-size: 15px;
+    border: 2px solid rgb(228, 196, 54);
+    margin-left: 15%;
+  }
+  
+  .btn:hover {
+    background-color: gray;
   }
 
   #box {

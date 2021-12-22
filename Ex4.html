@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    .wrapper{
+        display: flex;
+        height: 300px;
+        width: 300px;
+        border: 1px solid;
+        justify-content: center;
+        font-size: 30px;
+        align-items: center;
+        background-color: gray;
+    }
+    .drop {
+        animation: drop 1s ease-in-out;
+        animation-delay: calc(var(--order)*100ms);
+    }
+    
+    @keyframes drop {
+        from { transform: translateY(-100px)}
+        to { transform: translateY(0px)}
+    }
+
+
+</style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <span class="drop"> 😀 </span>
+        <span class="drop" style="--order: 2"> 😘 </span>
+        <span class="drop" style="--order: 3"> 😊 </span>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draw Image To Canvas</title>
+    <style>
+        body {
+            background-color: rgba(150, 157, 170, 0.5);
+        }
+        
+        #canvas {
+            border: 10px solid rgba(119, 134, 131, 0.794);
+            border-top: 5px solid rgba(119, 134, 131, 0.794);
+            background-color: rgba(119, 134, 131, 0.794);
+        }
+        
+        .upload {
+            background-color: rgba(119, 134, 131, 0.794);
+            width: 520px;
+        }
+        
+        .upload>span {
+            color: #fafafa;
+        }
+        
+        .upload>div>input {
+            color: #fafafa;
+            border: 2px solid rgba(247, 248, 250, 0.5);
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <canvas width="500" height="500" id="canvas"></canvas>
+        <div class="upload">
+            <span>Canvas : Insert an image here!</span>
+            <div>
+                <input type="file" id="fileinput" accept="image/*" />​
+                <!--accept=".png"-->
+            </div>
+        </div>
+    </center>
+    <script>
+        let fileInput = document.getElementById("fileinput").addEventListener("change", function(event) {
+            if (event.target.files) {
+                let file = event.target.files[0]; //get items image from input
+                console.log(file);
+
+                var reader = new FileReader();
+                reader.readAsDataURL(file); //read image from input 
+                reader.onloadend = function(event) {
+                    var image = new Image();
+                    image.src = event.target.result; //src image to display from reader file
+
+                    image.onload = function() {
+                        var canvas = document.getElementById("canvas");
+                        canvas.width = image.width;
+                        canvas.height = image.height;
+                        var ctx = canvas.getContext('2d');
+                        console.log(image.width);
+                        console.log(image.height);
+
+                        ctx.drawImage(image, 0, 0);
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

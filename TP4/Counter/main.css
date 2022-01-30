@@ -1,0 +1,89 @@
+
+* {
+	margin: 0;
+	box-sizing: border-box;
+
+	font-family: 'Fira sans', sans-serif;
+}
+
+body {
+	background-color: #EEE;
+}
+
+main {
+	padding: 3rem 2rem;
+	max-width: 640px;
+	margin: 0 auto;
+}
+
+h1 {
+	text-align: center;
+	color: #395494;
+	font-size: 4rem;
+	text-transform: uppercase;
+	margin-bottom: 1rem;
+}
+
+.counter {
+	background-color: #395494;
+	padding: 1rem;
+	border-radius: 1rem;
+	color: white;
+}
+
+.counter-value {
+	font-size: 8rem;
+	text-align: center;
+}
+
+.counter-controls {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 -1rem;
+}
+
+button {
+	--button_radius: 0.50em;
+	--button_color: #e8e8e8;
+	--button_outline_color: #395494;
+	font-size: 15px;
+	font-weight: bold;
+	border: none;
+	border-radius: var(--button_radius);
+	background: var(--button_outline_color);
+}
+  
+.button_top {
+	display: block;
+	box-sizing: border-box;
+	border: 0.5px solid var(--button_outline_color);
+	border-radius: var(--button_radius);
+	padding: 0.75em 1.5em;
+	background: var(--button_color);
+	color: var(--button_outline_color);
+	transform: translateY(-0.1em);
+	transition: transform 0.1s ease;
+}
+
+button span {
+	display: block;
+	transition: 0.4s ease-in-out;
+}
+
+
+button:active {
+	transform: scale(1.1);
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.1);
+	}
+	100% {
+		transform: scale(1);
+	}
+}

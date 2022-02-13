@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title>Exercise 1</title>
+  <style>
+    .main{
+      width: 100%;
+      height: 90vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .contain {
+      width: 400px;
+      height: 600px;
+      padding: 5px;
+      border: solid 2px #aaa;
+    }
+    .scrollable{
+      width: 100%;
+      height: 100%;
+      overflow-y: scroll;
+    }
+    .item{
+      display: flex;
+      flex-direction: column;
+      background-color: rgb(212, 231, 245);
+      border: solid 1px rgb(119, 117, 117);
+      border-radius: 5px;
+      padding: 5px;
+    }
+    .pagenumber{
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+      font-size: 2em;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  
+  </style>
+</head>
+<body>
+  
+  <div class="main">
+    <div class="contain">
+      <div class="scrollable" id="scrollCon" >
+          <!-- <div class="item">
+            <div>✈️ Plane </div>
+            <div>😃 Ravit</div>
+          </div> -->
+      </div>
+      <div class="pagenumber">
+        <span>Page: </span>
+        <span class="page_app">0</span>
+      </div>
+    </div>  
+  </div>
+  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(function(){
+    
+    //global var
+    let loading = false;
+    var scroller = document.querySelector('.scrollable');
+    let curent_page = 0;
+    let num_data = 10;
+
+    let page = 0;
+
+    //set default
+    getData(curent_page,num_data);
+    
+    $(".scrollable").on('scroll',function(){
+      
+      const clientHeight = scroller.clientHeight;
+      const scrollheight = scroller.scrollHeight;
+      const scrollTop = scroller.scrollTop;
+
+      // console.log('client', clientHeight, ', height', scrollheight, ', Top', scrollTop);
+      var r1 = clientHeight + scrollTop+200;
+      
+      if(r1>=scrollheight && !loading){
+          console.log("Load more...");
+          loadData();
+          loading = true;
+      }
+
+      if (clientHeight + scrollTop > (538 * (page + 1)) + 500) {
+        page++;
+        $('.page_app').html(page);
+        console.log(page)
+      } else if (clientHeight + scrollTop <= (538 * (page) + 400)){
+          page--;
+          $('.page_app').html(page);
+          console.log(page)
+      }
+
+    })
+
+    const fetch = ()=>{
+      return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+          resolve(true);
+        },3000);
+      })
+    }
+
+    const loadData = ()=>{
+      console.log("Loading...");
+      fetch().then(()=>{
+          console.log("done...");
+          loading=false;
+          getData(curent_page,num_data);
+          curent_page++;
+      })
+    }
+  
+    function getData(page,size){
+      $.get(`https://api.instantwebtools.net/v1/passenger?page=${page}&size=${size}`, async function (data) {
+        await console.log(data.data);
+        var temp = "";
+          for(var i in data.data){
+            temp +=  '<div class="item">'+
+                      '<div>✈️ '+data.data[i].airline[0].name+' - '+data.data[i].airline[0].country+'</div>'+
+                      '<div>😃 '+data.data[i].name+'</div>'+
+                    '</div>';
+          }
+          temp += "<hr>";
+        $(".scrollable").append(temp);
+
+      });
+    }
+    
+      
+  })
+</script>
+</body>
+</html>

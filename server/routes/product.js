@@ -1,18 +1,36 @@
 const express = require('express');
-const { create, productInEachItem, productById, removeById, update, findAllProduct } = require('../services/product');
-const router = express.Router();
 
-router.get('/add', async(req, res) => {
-    await create(req.body, req, res);
+const { create, productInEachItem, productById, removeById, update, productAll, productEach } = require('../services/product');
+const router = express.Router();
+const multer = require('multer');
+// const upload = multer({ dest: "../Client/src/assets/uploads/" }).single('imageFile');
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, '../Client/src/assets/uploads/')
+    },
+    filename: function(req, file, cb) {
+        cb(null, Date.now() + '.png') //Appending .jpg
+    }
+})
+
+const upload = multer({ storage: storage }).single('imageFile');
+
+
+router.post('/add', upload, async(req, res) => {
+    // console.log(req.file);
+    await create(req.body, req.file, req, res);
 })
 router.get('/all', async(req, res) => {
-    await findAllProduct(req, res);
+    await productAll(req, res);
+})
+router.post('/each-shop', async(req, res) => {
+    await productEach(req.body, req, res);
 })
 router.get('/each-item', async(req, res) => {
     await productInEachItem(req.body, req, res);
 })
-router.get('/id', async(req, res) => {
-    await productById(req.body, req, res);
+router.get('/id/:id', async(req, res) => {
+    await productById(req.params, req, res);
 })
 router.delete('/delete', async(req, res) => {
     await removeById(req.body, req, res);

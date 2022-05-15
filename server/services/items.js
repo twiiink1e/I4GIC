@@ -16,11 +16,13 @@ const create = async(params, req, res) => {
     }
 }
 const findById = async(params, req, res) => {
-    const { _id } = params;
+    const { id } = params;
+    console.log(id);
     try {
         const findItemById = await items.findById({
-            _id
-        })
+                _id: id
+            })
+            // console.log(findItemById);
         if (!findItemById) {
             throw "Items is not found";
         } else {
@@ -33,7 +35,7 @@ const findById = async(params, req, res) => {
 const findAllItems = async(req, res) => {
     try {
         const findItem = await items.find({})
-        return res.status(200).json({ status: "true", message: "All items", data: findItem });
+        return res.status(200).json({ status: "true", message: "Item", data: findItem });
     } catch (error) {
         return res.status(400).json({ status: "false", message: error });
     }
@@ -83,7 +85,7 @@ const finditemProduct = async(req, res) => {
                 foreignField: "item",
                 as: "product"
             }
-        }])
+        }, ])
 
         return res.json({ status: "true", message: "Category Items", data: itemProduct });
     } catch (error) {

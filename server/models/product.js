@@ -14,10 +14,6 @@ var productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    shop: {
-        type: Array,
-        required: true
-    },
     item: {
         type: schema.Types.ObjectId,
         ref: "items"

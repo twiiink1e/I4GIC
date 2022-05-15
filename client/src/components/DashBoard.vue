@@ -1,8 +1,12 @@
 <template>
   <div class="container-dashboard">
+    <!-- header-part -->
     <div class="header-product">
       <div>ADMIN DASHBOARD</div>
+      <div>SHOP</div>
     </div>
+
+    <!-- login-part -->
     <div class="log-in" v-show="show != false">
       <div class="container">
         <div class="log_in">
@@ -32,6 +36,8 @@
         </div>
       </div>
     </div>
+
+    <!-- table of data-part -->
     <div class="items" v-show="show != true">
       <div class="item-1">
         <ul>
@@ -55,14 +61,245 @@
           </li>
         </ul>
       </div>
-      <div class="item-2">
+
+      <!-- table-part -->
+      <div class="item-2" v-show="tabledisplay != false">
         <div
-          style="display: flex; justify-content: space-between; margin: 0 5vw"
+          style="display: flex; justify-content: space-between; margin: 0 1vw"
         >
           <div>{{ titleData.message }}</div>
-          <button v-on:click="deleteBtn(0)">Add new</button>
+          <button @click="addBtn(page)">Add new</button>
         </div>
-        <div v-html="display"></div>
+
+        <!-- category-table -->
+        <div v-show="categoryTable != false">
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>imageURL</th>
+              <th>action</th>
+            </tr>
+
+            <tr v-for="i in numOfCate" :key="i">
+              <td>{{ titleData.data[i - 1].name }}</td>
+              <td>{{ titleData.data[i - 1].description }}</td>
+              <td>{{ titleData.data[i - 1].imageURL }}</td>
+              <td>
+                <button @click="editBtn(`${titleData.data[i - 1]._id}`)">
+                  Edit</button
+                ><button @click="deleteBtn(`${titleData.data[i - 1]._id}`)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- item-table -->
+        <div v-show="itemTable != false">
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>action</th>
+            </tr>
+
+            <tr v-for="i in numOfCate" :key="i">
+              <td>{{ titleData.data[i - 1].name }}</td>
+              <td>{{ titleData.data[i - 1].description }}</td>
+              <td>{{ titleData.data[i - 1].category }}</td>
+              <td>
+                <button @click="editBtn(`${titleData.data[i - 1]._id}`)">
+                  Edit</button
+                ><button @click="deleteBtn(`${titleData.data[i - 1]._id}`)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- product-table -->
+        <div v-show="productTable != false">
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>ImageURL</th>
+              <th>Item</th>
+              <th>action</th>
+            </tr>
+
+            <tr v-for="i in numOfCate" :key="i">
+              <td>{{ titleData.data[i - 1].name }}</td>
+              <td>{{ titleData.data[i - 1].imageURL }}</td>
+              <td>{{ titleData.data[i - 1].item }}</td>
+              <td>
+                <button @click="editBtn(`${titleData.data[i - 1]._id}`)">
+                  Edit</button
+                ><button @click="deleteBtn(`${titleData.data[i - 1]._id}`)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- edit-product which is show the detail info -->
+      <div v-show="editProduct != false" class="editProd">
+        <h3 style="margin-left: 55px">Product details</h3>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            margin-left: 100px;
+            margin-bottom: 20px;
+          "
+        >
+          <img :src="imageLINK" />
+          <div style="margin-left: 1vw" v-for="j in numofproduct" :key="j">
+            <div>Name: {{ productData.data.name }}</div>
+            <div>Item: {{ productItem.data.name }}</div>
+            <div>Category: {{ productCategory.data.name }}</div>
+          </div>
+        </div>
+        <hr />
+        <div
+          style="
+            margin: 1% 5% 0 5%;
+            display: flex;
+            justify-content: space-between;
+          "
+        >
+          <h3>Product prices</h3>
+          <button @click="addNewPrice()">Add new price</button>
+        </div>
+        <table>
+          <tr>
+            <th>Price</th>
+            <th>Source</th>
+            <th>action</th>
+          </tr>
+          <tr v-if="numofprice == 0">
+            <td>No data</td>
+            <td>No data</td>
+            <td>No data</td>
+          </tr>
+
+          <tr v-for="i in numofprice" :key="i">
+            <td>{{ productData.data.shop[i - 1].price }}</td>
+            <td>{{ productData.data.shop[i - 1].source }}</td>
+            <td>
+              <button @click="editBtn(`${titleData.data[i - 1]._id}`)">
+                Edit</button
+              ><button @click="deleteBtn(`${titleData.data[i - 1]._id}`)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </table>
+        <!-- <button @click="cancelEdit()">Cancel</button> -->
+      </div>
+
+      <!-- add data of category and item -->
+      <div v-show="cate != false" class="addData">
+        <div class="add_container">
+          <div v-if="page == 1">
+            <div>Create new category</div>
+            <input
+              type="text"
+              name="category"
+              placeholder="name"
+              v-model="input1"
+            />
+            <input
+              type="text"
+              name="item"
+              placeholder="description"
+              v-model="input2"
+            />
+            <input
+              type="url"
+              name="product"
+              placeholder="imageURL"
+              v-model="input3"
+            />
+          </div>
+          <div v-else-if="page == 2">
+            <div>Create new item</div>
+            <input
+              type="text"
+              name="item"
+              placeholder="name"
+              v-model="input1"
+            />
+            <input
+              type="text"
+              name="decription"
+              placeholder="description"
+              v-model="input2"
+            />
+            <input
+              type="url"
+              name="categoryID"
+              placeholder="categoryID"
+              v-model="input3"
+            />
+          </div>
+          <div v-else-if="page == 3">
+            <div>Create new product</div>
+            <input
+              type="file"
+              name="imageURL"
+              id="fileimg"
+              accept="image/*"
+              @change="imageData"
+            />
+            <input
+              type="text"
+              name="product"
+              placeholder="name"
+              v-model="input1"
+            />
+            <!-- <input
+              type="text"
+              name="image"
+              placeholder="imageURL"
+              v-model="input2"
+            /> -->
+            <input
+              type="url"
+              name="itemID"
+              placeholder="itemID"
+              v-model="input3"
+            />
+          </div>
+          <button @click="closeAdd(page)">Cancel</button>
+          <button @click="createData(page)">Create</button>
+        </div>
+      </div>
+      <div v-show="priceTable != false" class="addData">
+        <div class="add_container">
+          <div>
+            <div>Create new price</div>
+            <input
+              type="text"
+              name="price"
+              placeholder="price"
+              v-model="input1"
+            />
+            <input
+              type="text"
+              name="source"
+              placeholder="source"
+              v-model="input2"
+            />
+          </div>
+          <button @click="cancelAddPrice()">Cancel</button>
+          <button @click="addPrice()">Add</button>
+        </div>
       </div>
     </div>
   </div>
@@ -76,12 +313,28 @@ export default {
       email: "",
       password: "",
       show: true,
+      tabledisplay: true,
       msg: "",
       input_color: "",
+      imageLINK: "",
       titleData: [],
+      productData: [],
+      productItem: [],
+      productCategory: [],
       numOfCate: 0,
-      display: "",
-      display_item: "",
+      numofproduct: 0,
+      numofprice: 0,
+      page: 0,
+      cate: false,
+      editProduct: false,
+      categoryTable: false,
+      itemTable: false,
+      productTable: false,
+      priceTable: false,
+      input1: "",
+      input2: "",
+      input3: "",
+      imageURL: null,
     };
   },
   async mounted() {
@@ -95,41 +348,115 @@ export default {
       "http://localhost:3001/category/all",
       requestOptions
     );
+    // const product = await fetch(
+    //   "http://localhost:3001/product/id/6247762f802a20af6b94a71e",
+    //   requestOptions
+    // );
     const data = await response.json();
+    // const productdata = await product.json();
     this.titleData = data;
+    // this.productData = productdata;
     this.numOfCate = this.titleData.data.length;
-    this.display =
-      `<table><tr>` +
-      `<th>Name</th>` +
-      `<th>Description</th>` +
-      `<th>imageURL</th>` +
-      `<th>action</th>` +
-      `</tr>`;
-    for (var i = 0; i < this.numOfCate; i++) {
-      this.display_item =
-        this.display_item +
-        `<tr>` +
-        `<td>${this.titleData.data[i].name}</td>` +
-        `<td>${this.titleData.data[i].description}</td>` +
-        `<td>${this.titleData.data[i].imageURL}</td>` +
-        `<td><button @click="editBtn(${i})">Edit</button><button @click="deleteBtn(${i})">Delete</button></td>` +
-        `</tr>`;
-    }
-    this.display = this.display + this.display_item + `</table>`;
-
-    console.log(this.titleData);
-    console.log(this.numOfCate);
+    this.categoryTable = true;
+    this.itemTable = false;
+    this.productTable = false;
+    this.page = 1;
+    // console.log(this.productData);
+    // console.log(this.numOfCate);
   },
   methods: {
+    //delete data of product
     deleteBtn(id) {
-      alert(id);
+      this.deleteData(id);
     },
+
+    //edit data product
+    async editBtn(id) {
+      this.numofprice = 0;
+      // POST request using fetch with async/await
+      const requestOptions = {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          _id: id,
+        }),
+      };
+      const response = await fetch(
+        `http://localhost:3001/product/each-shop`,
+        requestOptions
+      );
+      const data = await response.json();
+      this.productData = data;
+      const requestOptions1 = {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      };
+      const item = await fetch(
+        `http://localhost:3001/item/id/${this.productData.data.item}`,
+        requestOptions1
+      );
+      this.productItem = await item.json();
+
+      const category = await fetch(
+        `http://localhost:3001/category/id/${this.productItem.data.category}`,
+        requestOptions1
+      );
+      this.productCategory = await category.json();
+      // console.log("Item: ", this.productItem);
+      this.imageLINK = "src/assets/uploads/" + this.productData.data.imageURL;
+      this.numofproduct = 1;
+      this.numofprice = this.productData.data.shop.length;
+      // console.log(this.productData);
+      if (this.page == 3) {
+        this.editProduct = true;
+        this.tabledisplay = false;
+      }
+    },
+    cancelEdit() {
+      this.editProduct = false;
+      this.tabledisplay = true;
+    },
+    addNewPrice() {
+      // alert(this.productData.data._id);
+      this.priceTable = true;
+    },
+    cancelAddPrice() {
+      this.priceTable = false;
+    },
+    async addPrice() {
+      const requestOptions = {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          product: this.productData.data._id,
+          price: this.input1,
+          source: this.input2,
+        }),
+      };
+      const response = await fetch(
+        "http://localhost:3001/price/create",
+        requestOptions
+      );
+      await response.json();
+      this.productData.data.shop[this.numofprice] = {
+        product: this.productData.data._id,
+        price: this.input1,
+        source: this.input2,
+      };
+      this.numofprice = this.productData.data.shop.length;
+      alert("Congrate adding new price succesfully!");
+    },
+
+    //log in daskboard
     logged() {
       if (!this.email || !this.password) {
         this.msg = "Username or password cannot empty.";
         this.input_color = "rgba(240,0,0,.6)";
       } else {
-        if (this.email == "admin" && this.password == "123") {
+        if (this.email == "admin" && this.password == "12345") {
           this.show = false;
         } else {
           this.msg = "Username or password is incorrect.";
@@ -137,6 +464,8 @@ export default {
         }
       }
     },
+
+    //load category data
     async category() {
       // POST request using fetch with async/await
       const requestOptions = {
@@ -151,30 +480,17 @@ export default {
       const data = await response.json();
       this.titleData = data;
       this.numOfCate = this.titleData.data.length;
-      this.display = "";
-      this.display_item = "";
-      this.display =
-        `<table><tr>` +
-        `<th>Name</th>` +
-        `<th>Description</th>` +
-        `<th>imageURL</th>` +
-        `<th>action</th>` +
-        `</tr>`;
-      for (var i = 0; i < this.numOfCate; i++) {
-        this.display_item =
-          this.display_item +
-          `<tr>` +
-          `<td>${this.titleData.data[i].name}</td>` +
-          `<td>${this.titleData.data[i].description}</td>` +
-          `<td>${this.titleData.data[i].imageURL}</td>` +
-          `<td><button @click="editBtn(${i})">Edit</button><button @click="deleteBtn(${i})">Delete</button></td>` +
-          `</tr>`;
-      }
-      this.display = this.display + this.display_item + `</table>`;
-
-      console.log(this.titleData);
-      console.log(this.numOfCate);
+      this.categoryTable = true;
+      this.itemTable = false;
+      this.productTable = false;
+      this.editProduct = false;
+      this.tabledisplay = true;
+      this.page = 1;
+      // console.log(this.titleData);
+      // console.log(this.numOfCate);
     },
+
+    //load item data
     async items() {
       // POST request using fetch with async/await
       const requestOptions = {
@@ -187,33 +503,20 @@ export default {
         requestOptions
       );
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       this.titleData = data;
       this.numOfCate = this.titleData.data.length;
-      this.display = "";
-      this.display_item = "";
-      this.display =
-        `<table><thead><tr>` +
-        `<th>Name</th>` +
-        `<th>Description</th>` +
-        `<th>Category</th>` +
-        `<th>action</th>` +
-        `</tr></thead><tbody>`;
-      for (var i = 0; i < this.numOfCate; i++) {
-        this.display_item =
-          this.display_item +
-          `<tr>` +
-          `<td>${this.titleData.data[i].name}</td>` +
-          `<td>${this.titleData.data[i].description}</td>` +
-          `<td>${this.titleData.data[i].category}</td>` +
-          `<td><button @click="editBtn(${i})">Edit</button><button @click="deleteBtn(${i})">Delete</button></td>` +
-          `</tr>`;
-      }
-      this.display = this.display + this.display_item + `</tbody></table>`;
-
-      console.log(this.titleData);
-      console.log(this.numOfCate);
+      this.categoryTable = false;
+      this.itemTable = true;
+      this.productTable = false;
+      this.editProduct = false;
+      this.tabledisplay = true;
+      this.page = 2;
+      // console.log(this.titleData);
+      // console.log(this.numOfCate);
     },
+
+    //load product data
     async products() {
       // POST request using fetch with async/await
       const requestOptions = {
@@ -226,32 +529,165 @@ export default {
         requestOptions
       );
       const data = await response.json();
-      console.log(data);
       this.titleData = data;
-      this.numOfCate = this.titleData.data.length;
-      this.display = "";
-      this.display_item = "";
-      this.display =
-        `<table><thead><tr>` +
-        `<th>Name</th>` +
-        `<th>imageURL</th>` +
-        `<th>Item</th>` +
-        `<th>action</th>` +
-        `</tr></thead><tbody>`;
-      for (var i = 0; i < this.numOfCate; i++) {
-        this.display_item =
-          this.display_item +
-          `<tr>` +
-          `<td>${this.titleData.data[i].name}</td>` +
-          `<td>${this.titleData.data[i].imageURL}</td>` +
-          `<td>${this.titleData.data[i].item}</td>` +
-          `<td><button @click="editBtn(${i})">Edit</button><button @click="deleteBtn(${i})">Delete</button></td>` +
-          `</tr>`;
-      }
-      this.display = this.display + this.display_item + `</tbody></table>`;
+      // console.log(this.titleData.data);
 
-      console.log(this.titleData);
-      console.log(this.numOfCate);
+      this.numOfCate = this.titleData.data.length;
+      this.categoryTable = false;
+      this.itemTable = false;
+      this.productTable = true;
+      this.editProduct = false;
+      this.tabledisplay = true;
+      this.page = 3;
+      // console.log(this.numOfCate);
+    },
+
+    //Add new button
+    async addBtn(num) {
+      this.cate = true;
+      this.page = num;
+    },
+    //close add new button
+    closeAdd(page) {
+      this.cate = false;
+    },
+
+    //create Category,Item,Product to database
+    async createData(numofPage) {
+      if (numofPage == 1) {
+        const requestOptions = {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: this.input1,
+            description: this.input2,
+            imageURL: this.input3,
+          }),
+        };
+        const response = await fetch(
+          "http://localhost:3001/category/add",
+          requestOptions
+        );
+        await response.json();
+        this.titleData.data[this.numOfCate] = {
+          name: this.input1,
+          description: this.input2,
+          imageURL: this.input3,
+        };
+        // console.log(this.titleData.data);
+        this.numOfCate = this.titleData.data.length;
+        alert("Create successful");
+      } else if (numofPage == 2) {
+        const requestOptions = {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: this.input1,
+            description: this.input2,
+            category: this.input3,
+          }),
+        };
+        const response = await fetch(
+          "http://localhost:3001/item/add",
+          requestOptions
+        );
+        await response.json();
+        this.titleData.data[this.numOfCate] = {
+          name: this.input1,
+          description: this.input2,
+          category: this.input3,
+        };
+        // console.log(this.titleData.data);
+        this.numOfCate = this.titleData.data.length;
+        alert("Create successful");
+      } else if (numofPage == 3) {
+        // console.log(this.imageURL);
+        const formData = new FormData();
+        formData.append("name", this.input1);
+        formData.append("imageFile", this.imageURL);
+        formData.append("item", this.input3);
+        // for (let [name, value] of formData) {
+        //   console.log(`${name} = ${value}`); // key1 = value1, then key2 = value2
+        // }
+
+        const requestOptions = {
+          method: "POST",
+          body: formData,
+          credentials: "include",
+        };
+        const response = await fetch(
+          "http://localhost:3001/product/add",
+          requestOptions
+        );
+        await response.json();
+        this.products();
+        this.formData = "";
+        alert("Create successful");
+      }
+
+      this.input1 = "";
+      this.input2 = "";
+      this.input3 = "";
+    },
+
+    //delete Category, Item, Product
+    async deleteData(idofData) {
+      if (this.page == 1) {
+        const requestOptions = {
+          method: "DELETE",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            _id: idofData,
+          }),
+        };
+        const response = await fetch(
+          "http://localhost:3001/category/remove",
+          requestOptions
+        );
+        await response.json();
+        this.category();
+        alert("Delete successful");
+      } else if (this.page == 2) {
+        const requestOptions = {
+          method: "DELETE",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            _id: idofData,
+          }),
+        };
+        const response = await fetch(
+          "http://localhost:3001/item/delete",
+          requestOptions
+        );
+        await response.json();
+        this.items();
+        alert("Delete successful");
+      } else if (this.page == 3) {
+        const requestOptions = {
+          method: "DELETE",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            _id: idofData,
+          }),
+        };
+        const response = await fetch(
+          "http://localhost:3001/product/delete",
+          requestOptions
+        );
+        await response.json();
+        this.products();
+        alert("Delete successful");
+      }
+    },
+
+    //Image data from user upload
+    imageData(e) {
+      this.imageURL = e.target.files[0];
     },
   },
 };
@@ -263,7 +699,7 @@ body {
   padding: 0;
   font-size: 18px;
   display: block;
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(91, 91, 91, 0.7);
   background-color: rgba(247, 247, 247);
 }
 header {
@@ -295,11 +731,11 @@ header {
   align-items: center;
 }
 .log_in {
-  background-color: rgba(170, 170, 170, 0.8);
+  background-color: rgb(255, 255, 255);
   width: 27vw;
   padding: 1rem;
   border-radius: 2px;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 0px 6px;
+  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 6px;
 }
 
 .log_in > div {
@@ -307,7 +743,7 @@ header {
 }
 
 .log_in > label {
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 
 .log_in > div > img {
@@ -359,21 +795,27 @@ header {
 
 .container-dashboard .items {
   display: flex;
-  width: 100vw;
-  height: 92.5vh;
-  border: 2px solid black;
+  width: 99vw;
 }
 .items .item-1 {
   width: 10%;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  border: 2px solid black;
+  height: 92.5vh;
+  margin: 10px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   position: relative;
 }
 .items .item-2 {
   width: 90%;
-  border: 2px solid black;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin-top: 10px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  height: auto;
 }
 ul {
   width: 100%;
@@ -387,11 +829,12 @@ li {
   list-style-type: none;
 }
 li > a {
-  border: 2px solid black;
+  border-bottom: 1px solid grey;
+
   padding: 0.5vh 2.7vw;
 }
 li > a:focus {
-  background-color: rgba(49, 56, 52, 0.84);
+  background-color: rgba(156, 168, 175, 0.8);
 }
 
 table {
@@ -413,7 +856,56 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 
-/* thead tr {
-  display: block;
-} */
+.addData {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.44);
+  margin-top: -7vh;
+  width: 100vw;
+  height: 100vh;
+}
+
+.add_container {
+  color: white;
+  background: rgba(38, 38, 38, 0.852);
+  padding: 3vw 10vh;
+  border-radius: 7px;
+}
+
+.add_container > div > input {
+  background-color: #fafafa;
+  width: 100%;
+  border: 2px solid #aaa;
+  border-radius: 4px;
+  margin: 8px 0;
+  outline: none;
+  padding: 8px;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+
+.add_container > div > input:focus {
+  border-color: dodgerBlue;
+  box-shadow: 0 0 8px 0 dodgerBlue;
+}
+
+.editProd {
+  width: 90%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin-top: 10px;
+  border-radius: 5px;
+  background-color: #fafafa;
+  height: auto;
+  padding: 10px 10px;
+}
+.editProd img {
+  height: 100px;
+  width: 100px;
+  padding: 0px;
+  border-radius: 100px;
+  box-sizing: border-box;
+  border: 2px solid black;
+}
 </style>

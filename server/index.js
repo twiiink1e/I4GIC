@@ -3,10 +3,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const app = express();
-var cookieParser = require('cookie-parser')
+var cookieParser = require('cookie-parser');
 
 
-app.use(cookieParser())
+app.use(cookieParser());
 
 //allow api to access any port
 app.use(cors({
@@ -14,11 +14,12 @@ app.use(cors({
     credentials: true,
 }))
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
-// parse application/json
+// for parsing application/json
 app.use(bodyParser.json());
-//router
+
+// for parsing application/xwww-
+app.use(bodyParser.urlencoded({ extended: true }));
+//form-urlencoded
 const router = require('./routes');
 app.use(router);
 

@@ -122,7 +122,7 @@ export default {
   width: 27vw;
   padding: 1rem;
   border-radius: 2%;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 0px 6px;
+  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 6px;
 }
 
 .log_in > div {

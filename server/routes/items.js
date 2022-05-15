@@ -4,8 +4,8 @@ const router = express.Router();
 router.post('/add', async(req, res) => {
     await create(req.body, req, res);
 })
-router.post('/id', async(req, res) => {
-    await findById(req.body, req, res);
+router.post('/id/:id', async(req, res) => {
+    await findById(req.params, req, res);
 })
 router.get('/all', async(req, res) => {
     await findAllItems(req, res);
